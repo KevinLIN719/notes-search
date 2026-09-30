@@ -9,7 +9,11 @@
 # 你的讲义是课程材料，版权属于老师/学校。
 # 即使仓库是 private，也不该把别人的讲义提交进去。
 # 这个目录只在你本机存在，别人 clone 后自己放自己的讲义。
-notes/
+#
+# ⚠️ 不能写成 `notes/` + `!notes/.gitkeep`：git 无法把「被忽略目录」里的文件
+#    重新纳入白名单 —— 那样 .gitkeep 永远进不了仓库，别人 clone 后连 notes/ 目录都没有。
+#    正确写法：先忽略目录里的全部内容，再显式放行 .gitkeep。
+notes/*
 !notes/.gitkeep
 
 # 常见文档格式（万一放在别处也要挡住）
@@ -87,6 +91,8 @@ pip-wheel-metadata/
 
 # 测试与覆盖率
 .pytest_cache/
+# pytest 在缓存目录写入失败时，会在仓库根目录建这种临时目录
+pytest-cache-files-*/
 .coverage
 .coverage.*
 htmlcov/
